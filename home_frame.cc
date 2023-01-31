@@ -10,6 +10,9 @@
 #include "customer_frame.h"
 #include "menu_id.h"
 #include "frame_displayer.h"
+#include "wx/image.h"
+#include "wx/file.h"
+#include "bitmap_btn_panel.h"
 
 HomeFrame::HomeFrame() : wxFrame(
     nullptr, 
@@ -17,6 +20,40 @@ HomeFrame::HomeFrame() : wxFrame(
     "岚婷雅媛管理系统",
     wxDefaultPosition,
     wxSize(Preference::Get().GetSize().width,Preference::Get().GetSize().height)) {
+
+    wxInitAllImageHandlers();
+
+    // wxPanel* left_tab = new wxPanel(this, wxID_ANY,wxDefaultPosition,wxSize(100,Preference::Get().GetSize().height));
+    // left_tab->SetBackgroundColour(wxColor("#181818"));
+    SetBackgroundColour(wxColor("#181818"));
+
+    wxPanel* right_content = new wxPanel(this, wxID_ANY,wxDefaultPosition,wxSize(Preference::Get().GetSize().width,Preference::Get().GetSize().height));
+    right_content->SetBackgroundColour(wxColor("#212121"));
+
+    wxPanel* customer_icon = new BitmapBtnPanel(this, wxString("/Users/kevinlinpr/LTYY/icon/customer.png"), wxBITMAP_TYPE_PNG, wxSize(26,26),wxString("顾客"));
+    wxPanel* beautician_icon = new BitmapBtnPanel(this, wxString("/Users/kevinlinpr/LTYY/icon/beautician.png"), wxBITMAP_TYPE_PNG, wxSize(26,26),wxString("美容师"));
+    wxPanel* product_icon = new BitmapBtnPanel(this, wxString("/Users/kevinlinpr/LTYY/icon/product.png"), wxBITMAP_TYPE_PNG, wxSize(26,26),wxString("产品"));
+    wxPanel* project_icon = new BitmapBtnPanel(this, wxString("/Users/kevinlinpr/LTYY/icon/project.png"), wxBITMAP_TYPE_PNG, wxSize(26,26),wxString("项目"));
+    wxPanel* activity_icon = new BitmapBtnPanel(this, wxString("/Users/kevinlinpr/LTYY/icon/activity.png"), wxBITMAP_TYPE_PNG, wxSize(26,26),wxString("活动"));
+    wxPanel* order_icon = new BitmapBtnPanel(this, wxString("/Users/kevinlinpr/LTYY/icon/order.png"), wxBITMAP_TYPE_PNG, wxSize(26,26),wxString("订单"));
+    wxPanel* log_icon = new BitmapBtnPanel(this, wxString("/Users/kevinlinpr/LTYY/icon/log.png"), wxBITMAP_TYPE_PNG, wxSize(26,26),wxString("日志"));
+    wxBoxSizer* home_sizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* left_sizer = new wxBoxSizer(wxVERTICAL);
+    left_sizer->Add(customer_icon, 0,wxEXPAND | wxTOP,10);
+    left_sizer->Add(beautician_icon, 0,wxEXPAND | wxTOP,20);
+    left_sizer->Add(product_icon, 0,wxEXPAND | wxTOP,20);
+    left_sizer->Add(project_icon, 0,wxEXPAND | wxTOP,20);
+    left_sizer->Add(activity_icon, 0,wxEXPAND | wxTOP,20);
+    left_sizer->Add(order_icon, 0,wxEXPAND | wxTOP, 20);
+    left_sizer->Add(log_icon, 0,wxEXPAND | wxTOP,20);
+    home_sizer->Add(left_sizer);
+    home_sizer->Add(right_content, 1,wxEXPAND | wxALL,0);
+
+    
+
+    
+    this->SetSizerAndFit(home_sizer);
+
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
                      "Help string shown in status bar for this menu item");
@@ -82,13 +119,19 @@ HomeFrame::HomeFrame() : wxFrame(
     SetMenuBar( menuBar );
  
     CreateStatusBar();
-    SetStatusText("欢迎使用岚婷雅媛管理系统!");
+    SetStatusText("岚婷雅媛管理系统     版本号 v1.0.0.001");
  
     Bind(wxEVT_MENU, &HomeFrame::OnHello, this, ID_Hello);
     Bind(wxEVT_MENU, &HomeFrame::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_MENU, &HomeFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_MENU, &HomeFrame::OnCustomerDashBoard, this, static_cast<int>(menu::UI_ID::ID_Customer_Detail));
     Bind(wxEVT_ACTIVATE,&HomeFrame::OnActiveEvent, this);
+
+}
+
+
+void HomeFrame::OnPaint(wxPaintEvent& WXUNUSED(event)){
+
 }
 
 void HomeFrame::OnExit(wxCommandEvent& event){

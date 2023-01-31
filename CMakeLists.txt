@@ -10,6 +10,8 @@ add_executable(
     app.cc
     app.h
     beautician.h
+    bitmap_btn_panel.cc
+    bitmap_btn_panel.h
     consumption.h
     customer_frame.cc
     customer_frame.h
