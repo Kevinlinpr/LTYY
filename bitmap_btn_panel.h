@@ -3,17 +3,25 @@
 
 #include <wx/wx.h>
 #include <wx/sizer.h>
+#include "side_tab_switcher.h"
 
 class BitmapBtnPanel : public wxPanel {
 public:
-    BitmapBtnPanel(wxFrame* parent, wxString file, wxBitmapType format, wxSize size, wxString text);
+    BitmapBtnPanel(wxFrame* parent, wxString file, wxBitmapType format, wxSize size, wxString text,SideTabSwitcher::Section section);
     void PaintEvent(wxPaintEvent & evt);
     void PaintNow();
     void Render(wxDC& dc);
+
+    void MouseDown(wxMouseEvent& event);
+    DECLARE_EVENT_TABLE()
+
 private:
     wxBitmap image_;
     wxString text_;
     wxSize size_;
+    SideTabSwitcher::Section section_;
+
+    wxFrame* parent_;
 
     // some useful events
     /*
@@ -26,8 +34,7 @@ private:
      void keyPressed(wxKeyEvent& event);
      void keyReleased(wxKeyEvent& event);
      */
-        
-    DECLARE_EVENT_TABLE()
+    
 };
 
 

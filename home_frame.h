@@ -8,7 +8,10 @@
 #endif
 
 #include "frame_event.h"
+#include <memory>
 #include <wx/listctrl.h>
+#include "home_controller.h"
+#include "bitmap_btn_panel.h"
 
 enum
 {
@@ -19,6 +22,10 @@ class HomeFrame : public wxFrame,
                   public FramePositionEvent {
 public:
     HomeFrame();
+    HomeController* GetController();
+    void RefreshSectionStatus();
+
+
 private:
     
     void OnHello(wxCommandEvent& event);
@@ -31,11 +38,10 @@ private:
     void OnCustomerDashBoard(wxCommandEvent& event);
 
     void OnPaint(wxPaintEvent& WXUNUSED(event));
+private:
+    std::unique_ptr<HomeController> controller_;
+    std::vector<BitmapBtnPanel*> sections_; 
 
-    // wxListView* section_list_;
-
-    // wxBitmap* bitmap;
-    // wxPanel* left_tab;
 };
 
 #endif // LTYY_HOME_FRAME_H_

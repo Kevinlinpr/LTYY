@@ -19,8 +19,12 @@ add_executable(
     frame_displayer.cc
     frame_displayer.h
     frame_event.h
+    home_controller.cc
+    home_controller.h
     home_frame.cc
     home_frame.h
+    home_model.cc
+    home_model.h
     main.cc
     menu_id.h
     order.h
@@ -30,6 +34,8 @@ add_executable(
     preference.h
     product.h
     project.h
+    side_tab_switcher.cc
+    side_tab_switcher.h
     social.h
 )
 
